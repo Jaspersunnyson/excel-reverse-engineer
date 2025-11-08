@@ -97,12 +97,12 @@
                 <line x1="3" y1="15" x2="21" y2="15"/>
                 <line x1="12" y1="3" x2="12" y2="21"/>
             </svg>
-        
+        );
+
         // Anthropic API configuration. Insert your API key here. Without a valid key,
         // the extract function will not call the service and will instead prompt the user.
         const ANTHROPIC_API_KEY = '';
         const ANTHROPIC_VERSION = '2023-06-01';
-);
 
         function ExcelReverseEngineer() {
             const [file, setFile] = useState(null);
@@ -172,14 +172,14 @@
 
             const extractDataFromImage = async (retryCount = 0) => {
                 if (!file) return;
-                        // Require an API key before making requests
-        if (!ANTHROPIC_API_KEY) {
-            setStatus('error');
-            setMessage('Missing Anthropic API key. Please add your API key to the code to enable extraction.');
-            updateStats(false);
-            return;
-        }
 
+                // Require an API key before making requests
+                if (!ANTHROPIC_API_KEY) {
+                    setStatus('error');
+                    setMessage('Missing Anthropic API key. Please add your API key to the code to enable extraction.');
+                    updateStats(false);
+                    return;
+                }
 
                 setStatus('processing');
                 setMessage(retryCount > 0 ? `Retrying... (attempt ${retryCount + 1}/3)` : 'Analyzing image with AI...');
@@ -196,14 +196,10 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                                        'x-api-key': ANTHROPIC_API_KEY,
-            'anthropic-version': ANTHROPIC_VERSION,
-
+                            'x-api-key': ANTHROPIC_API_KEY,
+                            'anthropic-version': ANTHROPIC_VERSION
                         },
                         body: JSON.stringify({
-                                
-            
-
                             model: 'claude-sonnet-4-20250514',
                             max_tokens: 4000,
                             messages: [
